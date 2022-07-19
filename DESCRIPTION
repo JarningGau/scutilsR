@@ -14,6 +14,7 @@ Depends:
 Imports: 
     DoubletFinder (>= 2.0.3),
     dplyr (>= 1.0.8),
+    ggplot2 (>= 3.3.5),
     Matrix (>= 1.4.1),
     parallel (>= 4.1.2),
     pbapply (>= 1.5.0),
