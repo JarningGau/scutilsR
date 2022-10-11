@@ -33,3 +33,14 @@ ReadSolo <- function(path, assay="filtered") {
   mm <- do.call(cbind, mm.list)
   return(mm)
 }
+
+#' Read output from DNBelab C4
+#' @param file filename of matrix
+#' @return a counts matrix
+#' @export
+ReadC4 <- function(file) {
+  data <- data.table::fread(file, sep = "\t", header = T, data.table = F)
+  rownames(data) <- data$ID
+  data <- data[, -1]
+  data
+}
