@@ -1,6 +1,6 @@
 #' multi-core FindAllMarkers()
 #' @param seu Seurat object
-#' @param do.flatten Flattern the marker list into data.frame. Default: TRUE
+#' @param do.flatten Flatten the marker list into data.frame. Default: TRUE
 #' @param only.pos Only positive markers. Default: TRUE
 #' @param n.cores The number of threads. Default: 10
 #' @param ... Arguments passed to Seurat::FindMarkers()

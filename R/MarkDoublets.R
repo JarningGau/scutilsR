@@ -67,7 +67,7 @@ DF <- function(seu, PCs=1:10, auto.pK=TRUE, auto.cluster=TRUE) {
 
 #' Mark doublets
 #' @param seu Seurat object
-#' @param PCs Vectors indicating used priciple components. Default: 1:10
+#' @param PCs Vectors indicating used principle components. Default: 1:10
 #' @param split.by Name of a metadata column to split plot by. Default: NULL
 #' @return Seurat object
 #' @export
