@@ -1,4 +1,4 @@
-#' Mian function of CellChat analysis
+#' Main function of CellChat analysis
 #' @param seu seurat object
 #' @param label.field filed name in seurat meta.data contains cell labels.
 #' @param name run name, the prefix of final rds file and pdf plot.
