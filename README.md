@@ -11,7 +11,7 @@ analysis.
 
 ## Installation
 
-You can install the development version of scutilsR from
+You can install the development version of `scutilsR` from
 [GitHub](https://github.com/) with:
 
 ``` r
@@ -45,7 +45,9 @@ Read output from STARsolo
 mm <- ReadSolo(path = "/path/to/samplehub", assay = "assay")
 ```
 
-Read output from DNBelab C4 pipeline
+Read output from [DNBelab
+C4](https://github.com/MGI-tech-bioinformatics/DNBelab_C_Series_scRNA-analysis-software)
+pipeline
 
 ``` r
 data <- ReadC4("/path/to/dnbc4.txt.gz") # C4 output is a compressed dense matrix
@@ -57,8 +59,11 @@ Mark doublets rather than remove them via
 [DoubletFinder](https://github.com/chris-mcginnis-ucsf/DoubletFinder).
 
 `MarkDoublets()` function run `DoubletsFinder` separately. All
-parameters for `DoubletsFinder` are default. - pK: auto selected by
-`FindOptimalpK()` - pN: 0.25 - estimated percentage of doublets: 0.075
+parameters for `DoubletsFinder` are default.
+
+-   pK: auto selected by `FindOptimalpK()`
+-   pN: 0.25
+-   estimated percentage of doublets: 0.075
 
 ``` r
 seu <- MarkDoublets(seu = seu, PCs = 1:10, split.by = "orig.ident")
@@ -104,4 +109,27 @@ e.res <- pbapply::pblapply(all.markers, function(xx) {
 })
 
 e.res.df <- do.call(rbind, e.res)
+```
+
+### Cell-Cell Communication
+
+A [CellChat](https://github.com/sqjin/CellChat) wrapper
+`CellChatHelper()` was implemented in `scutilsR`
+
+``` r
+DB <- subsetDB(CellChat::CellChatDB.human, search = "Secreted Signaling")
+
+# outputs:
+# - {out.dir}/cellchat.{name}.{mode}.rds
+# - {out.dir}/cellchat.{name}.{mode}.pdf
+
+CellChatHelper(seu = seu, 
+               label.field = "seurat_clusters", 
+               name = "run_name", 
+               mode = "default", 
+               DB = DB, 
+               out.dir = getwd(), 
+               cores = 10, 
+               fig.width = 10, 
+               fig.height = 8)
 ```
