@@ -23,6 +23,10 @@ Imports:
     patchwork (>= 1.1.1),
     pbapply (>= 1.5.0),
     Seurat (>= 4.1.0)
+Suggests: 
+    celda (>= 1.10.0),
+    sceasy (>= 0.0.7),
+    SingleCellExperiment (>= 1.16.0)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
