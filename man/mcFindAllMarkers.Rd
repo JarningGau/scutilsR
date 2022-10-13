@@ -9,7 +9,7 @@ mcFindAllMarkers(seu, do.flatten = TRUE, only.pos = TRUE, n.cores = 10, ...)
 \arguments{
 \item{seu}{Seurat object}
 
-\item{do.flatten}{Flattern the marker list into data.frame. Default: TRUE}
+\item{do.flatten}{Flatten the marker list into data.frame. Default: TRUE}
 
 \item{only.pos}{Only positive markers. Default: TRUE}
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/CellChatHelper.R
 \name{CellChatHelper}
 \alias{CellChatHelper}
-\title{Mian function of CellChat analysis}
+\title{Main function of CellChat analysis}
 \usage{
 CellChatHelper(
   seu,
@@ -39,5 +39,5 @@ CellChatHelper(
 \item{fig.height}{figure height for pdf file. Default: 8}
 }
 \description{
-Mian function of CellChat analysis
+Main function of CellChat analysis
 }

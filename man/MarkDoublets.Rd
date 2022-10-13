@@ -9,7 +9,7 @@ MarkDoublets(seu, PCs = 1:10, split.by = NULL)
 \arguments{
 \item{seu}{Seurat object}
 
-\item{PCs}{Vectors indicating used priciple components. Default: 1:10}
+\item{PCs}{Vectors indicating used principle components. Default: 1:10}
 
 \item{split.by}{Name of a metadata column to split plot by. Default: NULL}
 }
