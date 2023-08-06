@@ -8,7 +8,6 @@ safe_mkdir <- function(path) {
 }
 
 #' Negate operation of \%in\%
-#' @usage letters \%notin\% letters[1:4]
 #' @export
 `%notin%` <- Negate(`%in%`)
 

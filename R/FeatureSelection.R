@@ -1,3 +1,11 @@
+message2 <- function(msg, show.time=T) {
+  if (show.time) {
+    message(sprintf("%s %s", Sys.time(), msg))
+  } else {
+    message(msg)
+  }
+}
+
 #' Find Variable Features from Integrated Dataset
 #'
 #' @param object A Seurat object.

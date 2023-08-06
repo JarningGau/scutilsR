@@ -4,7 +4,7 @@
 \alias{\%notin\%}
 \title{Negate operation of \%in\%}
 \usage{
-letters \%notin\% letters[1:4]
+... \%notin\% NA
 }
 \description{
 Negate operation of \%in\%
