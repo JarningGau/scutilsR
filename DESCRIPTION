@@ -15,17 +15,17 @@ Imports:
     data.table,
     dplyr (>= 1.0.8),
     future (>= 1.23.0),
-    ggplot2 (>= 3.3.5),
     Matrix (>= 1.4.1),
-    parallel (>= 4.1.2),
-    patchwork (>= 1.1.1),
-    pbapply (>= 1.5.0),
-    Seurat (>= 4.1.0)
+    pbapply (>= 1.5.0)
 Suggests: 
     celda (>= 1.10.0),
     CellChat (>= 1.4.0),
     DoubletFinder (>= 2.0.3),
+    ggplot2 (>= 3.3.5),
+    parallel (>= 4.1.2),
+    patchwork (>= 1.1.1),
     sceasy (>= 0.0.7),
+    Seurat (>= 4.1.0),
     SingleCellExperiment (>= 1.16.0)
 Encoding: UTF-8
 LazyData: true
