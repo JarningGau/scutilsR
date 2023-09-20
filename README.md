@@ -16,6 +16,10 @@ You can install the development version of `scutilsR` from
 
 ``` r
 # install.packages("devtools")
+# install DoubletFinder
+devtools::install_github('chris-mcginnis-ucsf/DoubletFinder')
+# install CellChat
+devtools::install_github("sqjin/CellChat")
 devtools::install_github("JarningGau/scutilsR")
 ```
 
@@ -61,9 +65,9 @@ Mark doublets rather than remove them via
 `MarkDoublets()` function run `DoubletsFinder` separately. All
 parameters for `DoubletsFinder` are default.
 
--   pK: auto selected by `FindOptimalpK()`
--   pN: 0.25
--   estimated percentage of doublets: 0.075
+- pK: auto selected by `FindOptimalpK()`
+- pN: 0.25
+- estimated percentage of doublets: 0.075
 
 ``` r
 seu <- MarkDoublets(seu = seu, PCs = 1:10, split.by = "orig.ident")
@@ -87,9 +91,8 @@ all.markers <- mcFindAllMarkers(seu = seu, do.flatten = F, only.pos = T, n.cores
 
 collected gene sets
 
--   [Mouse Cell Atlas (MCA)](https://doi.org/10.1016/j.cell.2018.02.001)
--   [Human Cell Lanscape
-    (HCL)](https://doi.org/10.1038/s41586-020-2157-4)
+- [Mouse Cell Atlas (MCA)](https://doi.org/10.1016/j.cell.2018.02.001)
+- [Human Cell Lanscape (HCL)](https://doi.org/10.1038/s41586-020-2157-4)
 
 ``` r
 all.markers <- mcFindAllMarkers(seu.ds, do.flatten = F, only.pos = T, n.cores = 20)

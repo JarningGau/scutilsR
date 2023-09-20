@@ -28,6 +28,10 @@ You can install the development version of `scutilsR` from [GitHub](https://gith
 
 ``` r
 # install.packages("devtools")
+# install DoubletFinder
+devtools::install_github('chris-mcginnis-ucsf/DoubletFinder')
+# install CellChat
+devtools::install_github("sqjin/CellChat")
 devtools::install_github("JarningGau/scutilsR")
 ```
 

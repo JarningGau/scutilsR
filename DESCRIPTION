@@ -12,9 +12,7 @@ License: MIT + file LICENSE
 Depends:
     R (>= 4.0.0)
 Imports: 
-    CellChat (>= 1.4.0),
     data.table,
-    DoubletFinder (>= 2.0.3),
     dplyr (>= 1.0.8),
     future (>= 1.23.0),
     ggplot2 (>= 3.3.5),
@@ -25,6 +23,8 @@ Imports:
     Seurat (>= 4.1.0)
 Suggests: 
     celda (>= 1.10.0),
+    CellChat (>= 1.4.0),
+    DoubletFinder (>= 2.0.3),
     sceasy (>= 0.0.7),
     SingleCellExperiment (>= 1.16.0)
 Encoding: UTF-8
