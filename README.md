@@ -17,9 +17,9 @@ You can install the development version of `scutilsR` from
 ``` r
 # install.packages("devtools")
 # install DoubletFinder
-devtools::install_github('chris-mcginnis-ucsf/DoubletFinder')
+devtools::install_github("chris-mcginnis-ucsf/DoubletFinder", ref = "554097b")
 # install CellChat
-devtools::install_github("sqjin/CellChat")
+devtools::install_github("sqjin/CellChat", ref = "418b660")
 devtools::install_github("JarningGau/scutilsR")
 ```
 
