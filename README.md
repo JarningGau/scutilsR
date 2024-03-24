@@ -78,7 +78,17 @@ doublets.
 
 ### Remove Ambient RNAs & Calculate Contimination Rates
 
-To do.
+If you have the clusters information.
+
+``` r
+seu <- RemoveAmbientRNAs(seu, split.by = "orig.ident", cluster.name = "seurat_clusters")
+```
+
+else
+
+``` r
+seu <- RemoveAmbientRNAs(seu, split.by = "orig.ident", cluster.name = NULL)
+```
 
 ### Find All Markers Parallelly
 
