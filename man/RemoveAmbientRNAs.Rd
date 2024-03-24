@@ -4,16 +4,14 @@
 \alias{RemoveAmbientRNAs}
 \title{A wrapper of celda::decontX}
 \usage{
-RemoveAmbientRNAs(seu, split.by, cluster.name = NULL, library.id = NULL)
+RemoveAmbientRNAs(seu, split.by = NULL, cluster.name = NULL)
 }
 \arguments{
 \item{seu}{Seurat object}
 
-\item{split.by}{The grouping variable used to split the input object.}
+\item{split.by}{The grouping variable used to split the input object. Default: NULL.}
 
-\item{cluster.name}{Name of cluster field in Seurat object.}
-
-\item{library.id}{Name of library field in Seurat object.}
+\item{cluster.name}{Name of cluster field in Seurat object. Default: NULL.}
 }
 \value{
 seurat object including a corrected counts matrix and contamination rates for each cell.
