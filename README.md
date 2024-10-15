@@ -106,22 +106,15 @@ collected gene sets
 
 ``` r
 all.markers <- mcFindAllMarkers(seu.ds, do.flatten = F, only.pos = T, n.cores = 20)
-all.markers <- lapply(all.markers, function(xx) subset(xx, p_val_adj < 1e-6 & avg_log2FC > log2(1.5)))
+all.markers <- lapply(all.markers, function(xx) subset(xx, p_val_adj < 1e-10 & avg_log2FC > log2(2))$Gene.name.uniq)
 
 ## enrichment analysis (human)
 data("mca_hsa")
 data("hcl_hsa")
 t2g <- rbind(mca_hsa, hcl_hsa)
 
-e.res <- pbapply::pblapply(all.markers, function(xx) {
-  yy <- xx$Gene.name.uniq
-  tmp <- clusterProfiler::enricher(yy, TERM2GENE = t2g)
-  res <- tmp@result
-  res$cluster <- xx$cluster[1]
-  res
-})
-
-e.res.df <- do.call(rbind, e.res)
+e.res <- enrich.batch(all.markers, t2g)
+enrich.dotplot(e.res)
 ```
 
 ### Cell-Cell Communication
