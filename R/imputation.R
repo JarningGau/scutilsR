@@ -24,13 +24,14 @@
 #'
 #' @import Seurat
 #' @import RcppML
+#' @import Matrix
 #' @importFrom parallel detectCores
 #' @export
 impute_nmf <- function(seu, min_cells = 50, k = 100, threads = 1, seed = 1024) {
   #### Method-1: NMF ####
   ## [g,c] ~ [g,k] %*% [k,k] %*% [k,c]
   ## [g,c] ~ [g,k] %*% [k,c] # k << c
-  expr.in.cells <- rowSums(seu[["RNA"]]@counts > 0)
+  expr.in.cells <- Matrix::rowSums(seu[["RNA"]]@counts > 0)
   genes <- names(expr.in.cells)[expr.in.cells >= min_cells]
   expr.mat <- seu[["RNA"]]@data[genes, ] # log normalized matrix
   
@@ -40,7 +41,6 @@ impute_nmf <- function(seu, min_cells = 50, k = 100, threads = 1, seed = 1024) {
   
   RcppML::setRcppMLthreads(threads)
   model <- RcppML::nmf(expr.mat, k = k, verbose = TRUE, seed = seed)
-  
   imputed.mat <- model$w %*% diag(model$d) %*% model$h
   colnames(imputed.mat) <- colnames(expr.mat)
   rownames(imputed.mat) <- rownames(expr.mat)
