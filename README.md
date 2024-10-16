@@ -113,8 +113,15 @@ data("mca_hsa")
 data("hcl_hsa")
 t2g <- rbind(mca_hsa, hcl_hsa)
 
-e.res <- enrich.batch(all.markers, t2g)
-enrich.dotplot(e.res)
+e.res <- enrich_batch(all.markers, t2g)
+enrich_dotplot(e.res)
+```
+
+### Data Imputation
+
+``` r
+DefaultAssay(seu) <- "RNA"
+seu <- impute_nmf(seu, min_cells = 50, k = 100, threads = 10, seed = 1024)
 ```
 
 ### Cell-Cell Communication
