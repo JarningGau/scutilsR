@@ -21,7 +21,7 @@ PreprocessSeurat <- function(seu, PCs=1:10) {
   seu
 }
 
-FindOptimalpK <- function(seu, PCs=1:10, num.cores = 8) {
+FindOptimalpK <- function(seu, PCs=1:10, num.cores = 1) {
   sweep.res.list <- paramSweep_v3(seu, PCs = PCs, sct = F, num.cores = num.cores)
   sweep.stats <- summarizeSweep(sweep.res.list, GT = F)
   bcmvn <- find.pK(sweep.stats)
@@ -30,7 +30,7 @@ FindOptimalpK <- function(seu, PCs=1:10, num.cores = 8) {
 }
 
 
-DF <- function(seu, PCs=1:10, auto.pK=TRUE, auto.cluster=TRUE) {
+DF <- function(seu, PCs=1:10, auto.pK=TRUE, auto.cluster=TRUE, num.cores = 1) {
   message("1. Preprocessing ...")
   # this step is for getting clusters
   if (auto.cluster) {
@@ -39,7 +39,7 @@ DF <- function(seu, PCs=1:10, auto.pK=TRUE, auto.cluster=TRUE) {
 
   message("2. Find optimal pK ...")
   if (auto.pK) {
-    optimal.pK <- FindOptimalpK(seu, PCs = PCs, num.cores = 8)
+    optimal.pK <- FindOptimalpK(seu, PCs = PCs, num.cores = num.cores)
     message(paste0("   Optimal pK = ", optimal.pK))
   } else {
     optimal.pK <- 0.09 # default
@@ -69,9 +69,10 @@ DF <- function(seu, PCs=1:10, auto.pK=TRUE, auto.cluster=TRUE) {
 #' @param seu Seurat object
 #' @param PCs Vectors indicating used principle components. Default: 1:10
 #' @param split.by Name of a metadata column to split plot by. Default: NULL
+#' @param num.cores Threads for calculation. Default: 1
 #' @return Seurat object
 #' @export
-MarkDoublets <- function(seu, PCs=1:10, split.by=NULL) {
+MarkDoublets <- function(seu, PCs=1:10, split.by=NULL, num.cores=1) {
   if (is.null(split.by)) {
     seu.list <- list(seu)
   } else {
@@ -79,7 +80,7 @@ MarkDoublets <- function(seu, PCs=1:10, split.by=NULL) {
   }
   names(seu.list) <- NULL
   metadata.new <- pbapply::pblapply(seu.list, function(xx) {
-    seu.tmp <- DF(xx, PCs=PCs, auto.pK=TRUE, auto.cluster=TRUE)
+    seu.tmp <- DF(xx, PCs=PCs, auto.pK=TRUE, auto.cluster=TRUE, num.cores = num.cores)
     seu.tmp@meta.data
   })
   metadata.new <- do.call(rbind, metadata.new)

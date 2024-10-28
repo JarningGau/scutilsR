@@ -4,7 +4,7 @@
 \alias{MarkDoublets}
 \title{Mark doublets}
 \usage{
-MarkDoublets(seu, PCs = 1:10, split.by = NULL)
+MarkDoublets(seu, PCs = 1:10, split.by = NULL, num.cores = 1)
 }
 \arguments{
 \item{seu}{Seurat object}
@@ -12,6 +12,8 @@ MarkDoublets(seu, PCs = 1:10, split.by = NULL)
 \item{PCs}{Vectors indicating used principle components. Default: 1:10}
 
 \item{split.by}{Name of a metadata column to split plot by. Default: NULL}
+
+\item{num.cores}{Threads for calculation. Default: 1}
 }
 \value{
 Seurat object
