@@ -18,10 +18,6 @@
 #' 4. Reconstructs the imputed matrix from the NMF factors.
 #' 5. Adds the imputed matrix as a new assay to the Seurat object.
 #'
-#' @examples
-#' seu <- qs::qread("output_03/06.HS_BM_donor1.seurat.lineage.qs")
-#' seu <- impute_nmf(seu)
-#'
 #' @import Seurat
 #' @import RcppML
 #' @import Matrix
@@ -34,18 +30,18 @@ impute_nmf <- function(seu, min_cells = 50, k = 100, threads = 1, seed = 1024) {
   expr.in.cells <- Matrix::rowSums(seu[["RNA"]]@counts > 0)
   genes <- names(expr.in.cells)[expr.in.cells >= min_cells]
   expr.mat <- seu[["RNA"]]@data[genes, ] # log normalized matrix
-  
+
   # Check and adjust threads parameter
   max_threads <- parallel::detectCores()
   threads <- min(max_threads %/% 2, threads)
-  
+
   RcppML::setRcppMLthreads(threads)
   model <- RcppML::nmf(expr.mat, k = k, verbose = TRUE, seed = seed)
   imputed.mat <- model$w %*% diag(model$d) %*% model$h
   colnames(imputed.mat) <- colnames(expr.mat)
   rownames(imputed.mat) <- rownames(expr.mat)
-  
+
   seu[["imputed"]] <- CreateAssayObject(data = imputed.mat)
-  
+
   return(seu)
 }

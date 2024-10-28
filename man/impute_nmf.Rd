@@ -31,8 +31,3 @@ The function performs the following steps:
 4. Reconstructs the imputed matrix from the NMF factors.
 5. Adds the imputed matrix as a new assay to the Seurat object.
 }
-\examples{
-seu <- qs::qread("output_03/06.HS_BM_donor1.seurat.lineage.qs")
-seu <- impute_nmf(seu)
-
-}

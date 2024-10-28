@@ -11,7 +11,6 @@
 #' @param cores threads used
 #' @param fig.width figure width for pdf file. Default: 10
 #' @param fig.height figure height for pdf file. Default: 8
-#' @import CellChat
 #' @import patchwork
 #' @importFrom grDevices dev.off
 #' @importFrom grDevices pdf
@@ -20,29 +19,29 @@ CellChatHelper <- function(seu, label.field, name="name", mode = "default", DB=N
   data.input <- GetAssayData(seu, slot = "data", assay = "RNA")
   meta <- seu[[label.field]]
   if (is.null(DB)) {
-    DB <- subsetDB(CellChat::CellChatDB.human, search = "Secreted Signaling")
+    DB <- CellChat::subsetDB(CellChat::CellChatDB.human, search = "Secreted Signaling")
   }
-  cellchat <- createCellChat(object = data.input, meta = meta, group.by = label.field)
+  cellchat <- CellChat::createCellChat(object = data.input, meta = meta, group.by = label.field)
   cellchat@DB <- DB
 
-  cellchat <- subsetData(cellchat)
+  cellchat <- CellChat::subsetData(cellchat)
   if (cores > 1) {
     future::plan("multiprocess", workers = cores)
   }
-  cellchat <- identifyOverExpressedGenes(cellchat)
-  cellchat <- identifyOverExpressedInteractions(cellchat)
+  cellchat <- CellChat::identifyOverExpressedGenes(cellchat)
+  cellchat <- CellChat::identifyOverExpressedInteractions(cellchat)
   if (mode == "default") {
-    cellchat <- computeCommunProb(cellchat)
+    cellchat <- CellChat::computeCommunProb(cellchat)
   } else if (mode == "population") {
-    cellchat <- computeCommunProb(cellchat, population.size = T)
+    cellchat <- CellChat::computeCommunProb(cellchat, population.size = T)
   } else if (mode == "sensitive") {
-    cellchat <- computeCommunProb(cellchat, population.size = T, type = "truncatedMean", trim = 0.1)
+    cellchat <- CellChat::computeCommunProb(cellchat, population.size = T, type = "truncatedMean", trim = 0.1)
   } else {
     stop("Error! Please set mode = one of [default, sensitive, population].")
   }
-  cellchat <- filterCommunication(cellchat, min.cells = 10)
-  cellchat <- computeCommunProbPathway(cellchat)
-  cellchat <- aggregateNet(cellchat)
+  cellchat <- CellChat::filterCommunication(cellchat, min.cells = 10)
+  cellchat <- CellChat::computeCommunProbPathway(cellchat)
+  cellchat <- CellChat::aggregateNet(cellchat)
 
   if (!dir.exists(out.dir)) {
     dir.create(out.dir)
@@ -51,21 +50,21 @@ CellChatHelper <- function(seu, label.field, name="name", mode = "default", DB=N
 
   pdf(file.path(out.dir, sprintf("cellchat.%s.%s.pdf", name, mode)), width = 10, height = 8)
   groupSize <- as.numeric(table(cellchat@idents))
-  netVisual_circle(cellchat@net$count, vertex.weight = groupSize, weight.scale = T, label.edge= F, title.name = "Number of interactions")
-  netVisual_circle(cellchat@net$weight, vertex.weight = groupSize, weight.scale = T, label.edge= F, title.name = "Interaction weights/strength")
+  CellChat::netVisual_circle(cellchat@net$count, vertex.weight = groupSize, weight.scale = T, label.edge= F, title.name = "Number of interactions")
+  CellChat::netVisual_circle(cellchat@net$weight, vertex.weight = groupSize, weight.scale = T, label.edge= F, title.name = "Interaction weights/strength")
   mat <- cellchat@net$weight
   for (i in 1:nrow(mat)) {
     mat2 <- matrix(0, nrow = nrow(mat), ncol = ncol(mat), dimnames = dimnames(mat))
     mat2[i, ] <- mat[i, ]
-    print(netVisual_circle(mat2, vertex.weight = groupSize, weight.scale = T, edge.weight.max = max(mat), title.name = rownames(mat)[i]))
+    print(CellChat::netVisual_circle(mat2, vertex.weight = groupSize, weight.scale = T, edge.weight.max = max(mat), title.name = rownames(mat)[i]))
   }
 
   for (i in cellchat@netP$pathways) {
-    print(netVisual_aggregate(cellchat, signaling = i, layout = "chord"))
+    print(CellChat::netVisual_aggregate(cellchat, signaling = i, layout = "chord"))
   }
 
   for (i in cellchat@netP$pathways) {
-    p <- plotGeneExpression(cellchat, signaling = i)
+    p <- CellChat::plotGeneExpression(cellchat, signaling = i)
     print(p + plot_annotation(title = paste(i, "pathway")) & theme(plot.title = element_text(hjust = .5)))
   }
   dev.off()
